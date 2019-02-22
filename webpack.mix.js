@@ -13,3 +13,12 @@ const mix = require('laravel-mix');
 
 mix.react('resources/js/app.js', 'public/js')
    .sass('resources/sass/app.scss', 'public/css')
+
+   //disable mixin notification after compiling js
+   .disableNotifications()
+
+    //hot reloading server
+    .browserSync({
+        proxy:'localhost:8000',
+        notify:false
+    })
