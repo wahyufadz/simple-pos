@@ -1,13 +1,11 @@
-/node_modules
-/public/hot
-/public/js
-/public/css
-/public/storage
-/storage/*.key
-/vendor
+# Node modules
+node_modules
+
+# Adonis directory for storing tmp files
+tmp
+
+# Environment variables, never commit this file
 .env
-.phpunit.result.cache
-Homestead.json
-Homestead.yaml
-npm-debug.log
-yarn-error.log
+
+# The development sqlite file
+database/*.sqlite

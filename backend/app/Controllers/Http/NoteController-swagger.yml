@@ -1,0 +1,117 @@
+/notes:
+  get:
+    security:
+      - Bearer: []
+    tags:
+      - "note"
+    summary: "List of all notes"
+    description: "Returns all notes"
+    operationId: "getAllNotes"
+    produces:
+      - "application/json"
+    responses:
+      200:
+        description: "successful operation"
+
+  post:
+    security:
+      - Bearer: []
+    tags:
+      - "note"
+    summary: "Create a note in the store with form data"
+    description: ""
+    operationId: "createNoteWithForm"
+    consumes:
+      - "application/x-www-form-urlencoded"
+    produces:
+      - "application/json"
+    parameters:
+      - name: "title"
+        in: "formData"
+        description: "title of the note"
+        required: true
+        type: "string"
+      - name: "content"
+        in: "formData"
+        description: "Content of the note"
+        required: false
+        type: "string"
+    responses:
+      200:
+        description: "successful operation"
+
+/notes/{id}:
+  get:
+    security:
+      - Bearer: []
+    tags:
+      - "note"
+    summary: "Find note by ID"
+    description: "Returns a single note"
+    operationId: "getNoteById"
+    produces:
+      - "application/json"
+    parameters:
+      - name: "id"
+        in: "path"
+        description: "ID of note to return"
+        required: true
+        type: "integer"
+        format: "int64"
+    responses:
+      200:
+        description: "successful operation"
+
+  patch:
+    security:
+      - Bearer: []
+    tags:
+      - "note"
+    summary: "Updates a note in the store with form data"
+    description: ""
+    operationId: "updateNoteWithForm"
+    consumes:
+      - "application/x-www-form-urlencoded"
+    produces:
+      - "application/json"
+    parameters:
+      - name: "id"
+        in: "path"
+        description: "ID of note that needs to be updated"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "title"
+        in: "formData"
+        description: "Updated title of the note"
+        required: false
+        type: "string"
+      - name: "content"
+        in: "formData"
+        description: "Updated content of the note"
+        required: false
+        type: "string"
+    responses:
+      200:
+        description: "successful operation"
+
+  delete:
+    security:
+      - Bearer: []
+    tags:
+      - "note"
+    summary: "Deletes a note"
+    description: ""
+    operationId: "deleteNote"
+    produces:
+      - "application/json"
+    parameters:
+      - name: "id"
+        in: "path"
+        description: "Note id to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+    responses:
+      200:
+        description: "successful operation"
