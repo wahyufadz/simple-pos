@@ -1,14 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     BrowserRouter as Router,
     Switch,
     Route,
     NavLink,
+    Redirect
 } from "react-router-dom";
+import Cookie from 'js-cookie'
+
 import Login from './routes/Login'
 import './App.css';
 
 function App() {
+    let [loggedIn, setLoggedIn] = useState(Cookie.get('token') ? true : false)
     return (
         <div className="App">
             <Router>
@@ -21,9 +25,15 @@ function App() {
                             <li>
                                 <NavLink to="/about">About</NavLink>
                             </li>
-                            <li>
-                                <NavLink to="/login">Login</NavLink>
-                            </li>
+                            {loggedIn ?
+                                <li>
+                                    <NavLink to="/logout">Logout</NavLink>
+                                </li>
+                                :
+                                <li>
+                                    <NavLink to="/login">Login</NavLink>
+                                </li>
+                            }
                         </ul>
                     </nav>
 
@@ -33,9 +43,15 @@ function App() {
                         <Route path="/about">
                             <About />
                         </Route>
-                        <Route path="/login">
-                            <Login />
-                        </Route>
+                        {loggedIn ?
+                            <Route path="/logout">
+                                <Logout setLoggedIn={setLoggedIn} />
+                            </Route>
+                            :
+                            <Route path="/login">
+                                <Login setLoggedIn={setLoggedIn} />
+                            </Route>
+                        }
                         <Route path="/">
                             <Home />
                         </Route>
@@ -52,6 +68,13 @@ function Home() {
 
 function About() {
     return <h2>About</h2>;
+}
+
+function Logout({ setLoggedIn }) {
+    Cookie.remove('token')
+    Cookie.remove('refreshToken')
+    setLoggedIn(false)
+    return <Redirect to='/login' />
 }
 
 export default App;
