@@ -4,7 +4,8 @@ import {
     Switch,
     Route,
     NavLink,
-    Redirect
+    Redirect,
+    Link
 } from "react-router-dom";
 import Cookie from 'js-cookie'
 
@@ -16,27 +17,33 @@ function App() {
     return (
         <div className="App">
             <Router>
-                <div>
-                    <nav>
-                        <ul>
-                            <li>
-                                <NavLink to="/">Home</NavLink>
+                <nav className="navbar navbar-expand-lg navbar-light bg-light">
+                    <Link className="navbar-brand" to="/home">Navbar</Link>
+                    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span className="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul className="navbar-nav mr-auto">
+                            <li className="nav-item">
+                                <NavLink className="nav-link" to="/home">Home</NavLink>
                             </li>
-                            <li>
-                                <NavLink to="/about">About</NavLink>
+                            <li className="nav-item">
+                                <NavLink className="nav-link" to="/about">About</NavLink>
                             </li>
                             {loggedIn ?
-                                <li>
-                                    <NavLink to="/logout">Logout</NavLink>
+                                <li className="nav-item">
+                                    <NavLink className="nav-link" to="/logout">Logout</NavLink>
                                 </li>
                                 :
-                                <li>
-                                    <NavLink to="/login">Login</NavLink>
+                                <li className="nav-item">
+                                    <NavLink className="nav-link" to="/login">Login</NavLink>
                                 </li>
                             }
                         </ul>
-                    </nav>
-
+                    </div>
+                </nav>
+                <div>
                     {/* A <Switch> looks through its children <Route>s and
                 renders the first one that matches the current URL. */}
                     <Switch>
