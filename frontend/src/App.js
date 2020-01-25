@@ -10,6 +10,7 @@ import {
 import Cookie from 'js-cookie'
 
 import Login from './routes/Login'
+import Register from './routes/Register'
 import './App.css';
 
 function App() {
@@ -31,8 +32,11 @@ function App() {
                             <li className="nav-item">
                                 <NavLink className="nav-link" to="/about">About</NavLink>
                             </li>
+                            <li className="nav-item">
+                                <NavLink className="nav-link" to="/register">Register</NavLink>
+                            </li>
                             {loggedIn ?
-                                <li className="nav-item">
+                                <li className="nav-item float-right">
                                     <NavLink className="nav-link" to="/logout">Logout</NavLink>
                                 </li>
                                 :
@@ -43,27 +47,29 @@ function App() {
                         </ul>
                     </div>
                 </nav>
-                <div>
-                    {/* A <Switch> looks through its children <Route>s and
-                renders the first one that matches the current URL. */}
-                    <Switch>
-                        <Route path="/about">
-                            <About />
+                <Switch>
+                    <Route path="/home">
+                        <Home />
+                    </Route>
+                    <Route path="/about">
+                        <About />
+                    </Route>
+                    <Route path="/register">
+                        <Register />
+                    </Route>
+                    {loggedIn ?
+                        <Route path="/logout">
+                            <Logout setLoggedIn={setLoggedIn} />
                         </Route>
-                        {loggedIn ?
-                            <Route path="/logout">
-                                <Logout setLoggedIn={setLoggedIn} />
-                            </Route>
-                            :
-                            <Route path="/login">
-                                <Login setLoggedIn={setLoggedIn} />
-                            </Route>
-                        }
-                        <Route path="/">
-                            <Home />
+                        :
+                        <Route path="/login">
+                            <Login setLoggedIn={setLoggedIn} />
                         </Route>
-                    </Switch>
-                </div>
+                    }
+                    <Route path="/">
+                        <Home />
+                    </Route>
+                </Switch>
             </Router>
         </div>
     );
