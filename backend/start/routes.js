@@ -25,6 +25,10 @@ Route.group(() => {
     return { greeting: 'this is only a test' }
   })
 
+  Route.resource('items', 'ItemController')
+    .apiOnly()
+    .middleware('auth')
+
   Route.resource('notes', 'NoteController')
     .apiOnly()
     .middleware('auth')
