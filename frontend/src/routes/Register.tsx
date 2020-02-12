@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import { Form, Button, Container, Row, Col, Jumbotron } from "react-bootstrap";
 import { useForm, Controller } from "react-hook-form";
+import { apiRegister, apiChekUsernameEmail } from "../helpers/Services";
 
 export default function Register() {
   const { handleSubmit, errors, control, watch } = useForm(),
@@ -12,10 +13,7 @@ export default function Register() {
     postRegister = async ({ email, username, password }) => {
       const body = { email, username, password };
       try {
-        const res = await axios.post(
-          "http://127.0.0.1:3333/api/v1/auth/register",
-          body
-        );
+        const res = await apiRegister({ body });
         console.log(res);
       } catch (err) {
         console.log(err);
@@ -24,10 +22,7 @@ export default function Register() {
     checkAvailableUsernameEmail = async (type, data) => {
       try {
         const body = { type, data };
-        const res = await axios.post(
-          "http://127.0.0.1:3333/api/v1/auth/check-email-username",
-          body
-        );
+        const res = await apiChekUsernameEmail({ body });
         if (typeof res.data.error !== "undefined") {
           return res.data.error.message;
         }
